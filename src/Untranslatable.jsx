@@ -1,10 +1,25 @@
 import { useState } from 'react';
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "./firebaseConfig"; // Certifique-se de que esse arquivo existe
 
-const expressions = [
-  { en: "Big deal.", pt: "Grande coisa.", tone: "Sarcástico", context: "Desdém ou ironia", example: "So you won a medal. Big deal." },
-  { en: "Get over yourself.", pt: "Desce do salto.", tone: "Informal / Sarcástico", context: "Alguém convencido ou arrogante", example: "You think everyone loves you? Get over yourself." },
-  { en: "You wish.", pt: "Até parece.", tone: "Informal / Sarcástico", context: "Ironia diante de desejo improvável", example: "Me? Jealous of you? You wish." }
-];
+
+const [expressions, setExpressions] = useState([]);
+
+useEffect(() => {
+  async function fetchExpressions() {
+    try {
+      const querySnapshot = await getDocs(collection(db, "expressions"));
+      const data = querySnapshot.docs.map(doc => doc.data());
+      setExpressions(data);
+    } catch (error) {
+      console.error("Erro ao buscar expressões do Firestore:", error);
+    }
+  }
+
+  fetchExpressions();
+}, []);
+
 
 export default function Untranslatable() {
   const [search, setSearch] = useState("");
