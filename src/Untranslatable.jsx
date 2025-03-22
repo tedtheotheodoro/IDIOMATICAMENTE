@@ -1,10 +1,13 @@
+// src/Untranslatable.jsx
 import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from './firebaseConfig';
+import Login from './Login';
 
 export default function Untranslatable() {
   const [expressions, setExpressions] = useState([]);
   const [search, setSearch] = useState('');
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     async function fetchExpressions() {
@@ -36,24 +39,26 @@ export default function Untranslatable() {
         padding: 24,
         fontFamily: 'Inter, sans-serif',
         backgroundColor: '#fff',
-        color: '#000',
-        minHeight: '100vh',
+        color: '#000'
       }}
     >
       <h1 style={{ fontSize: 32, marginBottom: 16 }}>UNTRANSLATABLE</h1>
+
+      <Login onLogin={setUser} />
+
       <input
         type="text"
         placeholder="Buscar expressão..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         style={{
-          padding: 8,
-          marginBottom: 24,
           fontSize: 16,
+          padding: 10,
           width: '100%',
           maxWidth: 400,
+          marginBottom: 24,
           border: '1px solid #ccc',
-          borderRadius: 8,
+          borderRadius: 8
         }}
       />
 
@@ -61,7 +66,7 @@ export default function Untranslatable() {
         style={{
           display: 'grid',
           gap: 16,
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))'
         }}
       >
         {filtered.map((expr, index) => (
@@ -69,30 +74,17 @@ export default function Untranslatable() {
             key={index}
             style={{
               padding: 16,
-              border: '1px solid #ccc',
-              borderRadius: 12,
-              backgroundColor: '#fff',
-              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
+              border: '1px solid #eee',
+              borderRadius: 8,
+              boxShadow: '0 2px 5px rgba(0,0,0,0.05)',
+              background: '#fff'
             }}
           >
-            <p style={{ margin: 0 }}>
+            <p style={{ marginBottom: 8 }}>
               <strong>{expr.en}</strong> — {expr.pt}
             </p>
-            {expr.context && (
-              <p style={{ marginTop: 8, fontSize: 14 }}>{expr.context}</p>
-            )}
-            {expr.tone && (
-              <p
-                style={{
-                  marginTop: 4,
-                  fontSize: 13,
-                  fontStyle: 'italic',
-                  color: '#666',
-                }}
-              >
-                {expr.tone}
-              </p>
-            )}
+            <p style={{ fontSize: 14, marginBottom: 4 }}>{expr.context}</p>
+            <p style={{ fontSize: 13, fontStyle: 'italic', color: '#555' }}>{expr.tone}</p>
           </div>
         ))}
       </div>
