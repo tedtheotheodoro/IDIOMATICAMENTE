@@ -1,129 +1,159 @@
-// src/Untranslatable.jsx
-import { useEffect, useState } from 'react';
-import { collection, getDocs, addDoc } from 'firebase/firestore';
-import { db } from './firebaseConfig';
-import { auth, login, logout, onUserChange } from './firebaseAuth';
+// Componente principal do app UNTRANSLATABLE com melhorias visuais, usabilidade e responsividade + aviso de login obrigatório
+
+import React, { useState, useEffect } from 'react';
+import { auth, firestore, firebase, provider } from './firebase';
+import { signOut, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 
 export default function Untranslatable() {
+  const [user, setUser] = useState(null);
   const [expressions, setExpressions] = useState([]);
   const [search, setSearch] = useState('');
-  const [user, setUser] = useState(null);
-  const [formData, setFormData] = useState({
+  const [newExpression, setNewExpression] = useState({
     en: '',
     pt: '',
     context: '',
-    tone: ''
+    tone: '',
   });
 
   useEffect(() => {
-    async function fetchExpressions() {
-      try {
-        const querySnapshot = await getDocs(collection(db, 'expressions'));
-        const data = querySnapshot.docs.map((doc) => doc.data());
-        setExpressions(data);
-      } catch (error) {
-        console.error('Erro ao buscar expressões do Firestore:', error);
-      }
-    }
-
-    fetchExpressions();
-  }, []);
-
-  useEffect(() => {
-    const unsubscribe = onUserChange(setUser);
+    const unsubscribe = onAuthStateChanged(auth, currentUser => {
+      setUser(currentUser);
+    });
     return () => unsubscribe();
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    const fetchExpressions = async () => {
+      const querySnapshot = await getDocs(collection(firestore, 'expressions'));
+      const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setExpressions(data);
+    };
+    fetchExpressions();
+  }, []);
+
+  const handleAdd = async () => {
+    if (!newExpression.en || !newExpression.pt) return;
+    const docRef = await addDoc(collection(firestore, 'expressions'), newExpression);
+    setExpressions(prev => [...prev, { id: docRef.id, ...newExpression }]);
+    setNewExpression({ en: '', pt: '', context: '', tone: '' });
+  };
+
+  const filtered = expressions.filter(expr =>
+    [expr.en, expr.pt, expr.context, expr.tone].some(field =>
+      field?.toLowerCase().includes(search.toLowerCase())
+    )
+  );
+
+  const handleLogin = async () => {
     try {
-      await addDoc(collection(db, 'expressions'), formData);
-      setFormData({ en: '', pt: '', context: '', tone: '' });
+      await signInWithPopup(auth, provider);
     } catch (error) {
-      console.error('Erro ao adicionar expressão:', error);
+      console.error('Erro ao fazer login:', error);
     }
   };
 
-  const filtered = expressions.filter((expr) => {
-    const query = search.toLowerCase();
-    return (
-      expr.pt.toLowerCase().includes(query) ||
-      expr.en.toLowerCase().includes(query) ||
-      (expr.context && expr.context.toLowerCase().includes(query)) ||
-      (expr.tone && expr.tone.toLowerCase().includes(query))
-    );
-  });
-
   return (
-    <div style={{ padding: 24, fontFamily: 'Inter, sans-serif', backgroundColor: '#fff', color: '#000' }}>
-      <h1 style={{ fontSize: 32, marginBottom: 16 }}>UNTRANSLATABLE</h1>
+    <div className="max-w-5xl mx-auto px-4 py-8">
+      <h1 className="text-5xl font-bold text-purple-600 underline">UNTRANSLATABLE</h1>
+      <p className="text-lg text-gray-600 mt-1 mb-6">
+        Porque algumas palavras não cabem em duas línguas — e tudo bem.
+      </p>
 
       <input
         type="text"
-        placeholder="Buscar expressão..."
+        placeholder="Buscar por expressão, tradução ou contexto..."
+        className="w-full mb-6 p-2 border border-gray-300 rounded-md"
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        style={{ fontSize: 20, marginBottom: 32, padding: 8, width: '100%', maxWidth: 400 }}
+        onChange={e => setSearch(e.target.value)}
       />
 
       {!user ? (
-        <button onClick={login} style={{ marginBottom: 32 }}>Fazer login com Google</button>
+        <div className="bg-yellow-100 border border-yellow-300 p-4 rounded-xl mb-8">
+          <p className="text-yellow-800 font-medium">
+            ⚠️ É necessário fazer login para adicionar novas expressões.
+          </p>
+          <button
+            onClick={handleLogin}
+            className="mt-2 bg-black text-white px-4 py-2 rounded hover:bg-gray-800"
+          >
+            Login com Google
+          </button>
+        </div>
       ) : (
-        <>
-          <form onSubmit={handleSubmit} style={{ marginBottom: 32 }}>
-            <input
-              type="text"
-              placeholder="Inglês (en)"
-              value={formData.en}
-              onChange={(e) => setFormData({ ...formData, en: e.target.value })}
-              required
-              style={{ display: 'block', marginBottom: 8 }}
-            />
-            <input
-              type="text"
-              placeholder="Português (pt)"
-              value={formData.pt}
-              onChange={(e) => setFormData({ ...formData, pt: e.target.value })}
-              required
-              style={{ display: 'block', marginBottom: 8 }}
-            />
-            <input
-              type="text"
-              placeholder="Contexto (opcional)"
-              value={formData.context}
-              onChange={(e) => setFormData({ ...formData, context: e.target.value })}
-              style={{ display: 'block', marginBottom: 8 }}
-            />
-            <input
-              type="text"
-              placeholder="Tom (opcional)"
-              value={formData.tone}
-              onChange={(e) => setFormData({ ...formData, tone: e.target.value })}
-              style={{ display: 'block', marginBottom: 8 }}
-            />
-            <button type="submit">Adicionar expressão</button>
-            <button type="button" onClick={logout} style={{ marginLeft: 8 }}>Logout</button>
-          </form>
-        </>
+        <div className="bg-gray-50 p-4 rounded-xl shadow mb-8">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold">Adicionar nova expressão</h2>
+            <p className="text-sm text-gray-500">Logado como: {user.displayName || user.email}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="text-sm text-gray-700">Inglês (en)</label>
+              <input
+                type="text"
+                value={newExpression.en}
+                onChange={e => setNewExpression({ ...newExpression, en: e.target.value })}
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+            </div>
+            <div>
+              <label className="text-sm text-gray-700">Português (pt)</label>
+              <input
+                type="text"
+                value={newExpression.pt}
+                onChange={e => setNewExpression({ ...newExpression, pt: e.target.value })}
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+            </div>
+            <div>
+              <label className="text-sm text-gray-700">Contexto (opcional)</label>
+              <input
+                type="text"
+                value={newExpression.context}
+                onChange={e => setNewExpression({ ...newExpression, context: e.target.value })}
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+            </div>
+            <div>
+              <label className="text-sm text-gray-700">Tom (opcional)</label>
+              <input
+                type="text"
+                value={newExpression.tone}
+                onChange={e => setNewExpression({ ...newExpression, tone: e.target.value })}
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+            </div>
+          </div>
+          <button
+            onClick={handleAdd}
+            className="mt-4 bg-black text-white px-4 py-2 rounded hover:bg-gray-800"
+          >
+            Adicionar expressão
+          </button>
+          <button
+            onClick={() => signOut(auth)}
+            className="ml-4 mt-4 text-sm text-red-600 hover:underline"
+          >
+            Logout
+          </button>
+        </div>
       )}
 
-      <div style={{ display: 'grid', gap: 16, gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
-        {filtered.map((expr, index) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {filtered.map(expr => (
           <div
-            key={index}
-            style={{
-              padding: 16,
-              border: '1px solid #ccc',
-              borderRadius: 8,
-              background: '#fafafa'
-            }}
+            key={expr.id}
+            className="border p-4 rounded-2xl shadow-sm bg-white hover:shadow-md transition"
           >
-            <strong>{expr.en}</strong> — {expr.pt}<br />
-            <span style={{ fontSize: 14 }}>{expr.context}</span><br />
-            <em style={{ fontSize: 12 }}>{expr.tone}</em>
+            <h3 className="text-xl font-semibold mb-1">{expr.en}</h3>
+            <p className="text-lg text-gray-800 mb-2">{expr.pt}</p>
+            {expr.context && <p className="text-sm text-gray-600 italic">{expr.context}</p>}
+            {expr.tone && <p className="text-xs text-gray-500 mt-1">{expr.tone}</p>}
           </div>
         ))}
       </div>
     </div>
   );
 }
+
+
