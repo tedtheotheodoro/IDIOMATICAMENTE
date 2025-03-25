@@ -1,10 +1,10 @@
-// src/Untranslatable.jsx
-
 import React, { useState, useEffect } from 'react';
-import { signInWithPopup, signOut } from 'firebase/auth';
+import { auth, firebase } from './firebase';
+import { signOut, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
-import { auth, provider, firestore } from './firebase';  // Ajustado para importar do novo firebase.js
 import './styles.css';  // Adiciona a importação do CSS
+
+const provider = new GoogleAuthProvider();
 
 export default function Untranslatable() {
   const [user, setUser] = useState(null);
@@ -12,31 +12,27 @@ export default function Untranslatable() {
   const [search, setSearch] = useState('');
   const [newExpression, setNewExpression] = useState({ en: '', pt: '', context: '', tone: '' });
 
-  // Autenticação - observador de estado de login
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(setUser);
+    const unsubscribe = onAuthStateChanged(auth, setUser);
     return unsubscribe;
   }, []);
 
-  // Carregar expressões do Firestore
   useEffect(() => {
     const fetchExpressions = async () => {
-      const querySnapshot = await getDocs(collection(firestore, 'expressions'));
+      const querySnapshot = await getDocs(collection(firebase.firestore(), 'expressions'));
       const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setExpressions(data);
     };
     fetchExpressions();
   }, []);
 
-  // Adicionar expressão no banco de dados
   const handleAdd = async () => {
     if (!newExpression.en || !newExpression.pt) return;
-    const docRef = await addDoc(collection(firestore, 'expressions'), newExpression);
+    const docRef = await addDoc(collection(firebase.firestore(), 'expressions'), newExpression);
     setExpressions(prev => [...prev, { id: docRef.id, ...newExpression }]);
     setNewExpression({ en: '', pt: '', context: '', tone: '' });
   };
 
-  // Filtrar as expressões baseadas na pesquisa
   const filtered = expressions.filter(expr =>
     [expr.en, expr.pt, expr.context, expr.tone].some(field =>
       field?.toLowerCase().includes(search.toLowerCase())
@@ -65,7 +61,7 @@ export default function Untranslatable() {
           </p>
           <button
             onClick={() => signInWithPopup(auth, provider)}
-            className="mt-3"
+            className="alert-button mt-3"
           >
             Login com Google
           </button>

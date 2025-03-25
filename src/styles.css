@@ -1,104 +1,69 @@
-/* Fonte */
+/* Estilos gerais */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f8f8f8;
-    color: #333;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Cabeçalho */
-  h1 {
-    font-size: 3rem;
-    text-align: center;
-    color: #333;
-    padding: 20px;
-  }
-  
-  /* Subtítulos */
-  h2 {
-    font-size: 2rem;
-    color: #444;
-    margin-bottom: 15px;
-  }
-  
-  /* Cartões */
-  .card {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 10px 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card h3 {
-    font-size: 1.5rem;
-    color: #007bff;
-    margin-bottom: 10px;
-  }
-  
-  .card p {
-    font-size: 1rem;
-    color: #555;
-  }
-  
-  .card .context {
-    font-style: italic;
-    color: #777;
-  }
-  
-  .card .tone {
-    color: #888;
-    font-size: 0.9rem;
-    margin-top: 5px;
-  }
-  
-  /* Botões */
-  button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-    font-size: 1rem;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Input */
-  input[type="text"] {
-    padding: 10px;
-    margin-bottom: 10px;
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  /* Avisos */
-  .alert {
-    background-color: #ffcc00;
-    color: #333;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    font-weight: bold;
-  }
-  
-  .alert button {
-    background-color: #cc0000;
-    padding: 5px 10px;
-    border: none;
-    color: white;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  
-  .alert button:hover {
-    background-color: #990000;
-  }
+  font-family: Arial, sans-serif;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+h1, h2 {
+  font-family: 'Helvetica', sans-serif;
+}
+
+/* Estilos para o botão de login */
+.alert-button {
+  background-color: #cc0000;
+  padding: 5px 10px;
+  border: none;
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.alert-button:hover {
+  background-color: #990000;
+}
+
+.alert {
+  background-color: #ffdd00;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.alert p {
+  margin: 0;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Estilos das cartas */
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.card h3 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #666;
+}
+
+.context, .tone {
+  font-size: 0.9rem;
+  color: #999;
+}
+
   
