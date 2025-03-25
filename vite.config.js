@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
+// Configuração básica do Vite
 export default defineConfig({
-  plugins: [react()]
-})
-//forçar novo deploy na Vercel
+  plugins: [react()],
+});
