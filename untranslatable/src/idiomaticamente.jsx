@@ -5,7 +5,7 @@ import { collection, addDoc, getDocs } from 'firebase/firestore';
 
 const provider = new GoogleAuthProvider();
 
-export default function Untranslatable() {
+export default function idiomaticamente() {
   const [user, setUser] = useState(null);
   const [expressions, setExpressions] = useState([]);
   const [search, setSearch] = useState('');
@@ -40,9 +40,9 @@ export default function Untranslatable() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
-      <h1 className="text-5xl font-bold text-black mb-2">UNTRANSLATABLE</h1>
+      <h1 className="text-5xl font-bold text-black mb-2">IDIOMATICAMENTE</h1>
       <p className="text-lg text-gray-600 mb-6">
-        Porque algumas palavras não cabem em duas línguas — e tudo bem.
+        Porque algumas expressões não cabem em duas línguas — e tudo bem.
       </p>
 
       {/* Disclaimer */}
