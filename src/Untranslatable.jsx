@@ -1,10 +1,9 @@
+// Untranslatable.jsx
 import React, { useState, useEffect } from 'react';
-import { auth, firebase } from './firebase';
-import { signOut, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
-import './styles.css';  // Adiciona a importação do CSS
-
-const provider = new GoogleAuthProvider();
+import { auth, provider, firestore } from './firebase'; // Alterado para usar as novas exportações
+import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
+import { collection, addDoc, getDocs } from 'firebase/firestore'; // Certifique-se de importar o Firestore corretamente
+import './styles.css';
 
 export default function Untranslatable() {
   const [user, setUser] = useState(null);
@@ -19,7 +18,7 @@ export default function Untranslatable() {
 
   useEffect(() => {
     const fetchExpressions = async () => {
-      const querySnapshot = await getDocs(collection(firebase.firestore(), 'expressions'));
+      const querySnapshot = await getDocs(collection(firestore, "expressions"));
       const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setExpressions(data);
     };
@@ -28,7 +27,7 @@ export default function Untranslatable() {
 
   const handleAdd = async () => {
     if (!newExpression.en || !newExpression.pt) return;
-    const docRef = await addDoc(collection(firebase.firestore(), 'expressions'), newExpression);
+    const docRef = await addDoc(collection(firestore, 'expressions'), newExpression);
     setExpressions(prev => [...prev, { id: docRef.id, ...newExpression }]);
     setNewExpression({ en: '', pt: '', context: '', tone: '' });
   };
@@ -132,4 +131,3 @@ export default function Untranslatable() {
     </div>
   );
 }
-
