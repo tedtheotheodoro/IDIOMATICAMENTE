@@ -1,11 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Untranslatable from './Untranslatable'
+import idiomaticamente from './idiomaticamente'
 import './index.css'; // Importa o Tailwind!
+import IDIOMATICAMENTE from './idiomaticamente';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Untranslatable />
+    <IDIOMATICAMENTE />
   </React.StrictMode>,
 )
