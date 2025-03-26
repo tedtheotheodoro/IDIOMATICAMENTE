@@ -13,9 +13,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\JESSICA\\Documents\\untranslatable\\untranslatable.csproj",
+      "projectUniqueName": "C:\\Users\\JESSICA\\Documents\\untranslatable\\idiomaticamente.csproj",
       "projectName": "untranslatable",
-      "projectPath": "C:\\Users\\JESSICA\\Documents\\untranslatable\\untranslatable.csproj",
+      "projectPath": "C:\\Users\\JESSICA\\Documents\\untranslatable\\idiomaticamente.csproj",
       "packagesPath": "C:\\Users\\JESSICA\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\JESSICA\\Documents\\untranslatable\\obj\\",
       "projectStyle": "PackageReference",
