@@ -1,10 +1,3 @@
-// idiomaticamente.jsx
-import React, { useState, useEffect } from 'react';
-import { auth, provider, firestore } from './firebase'; // Alterado para usar as novas exportações
-import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
-import { collection, addDoc, getDocs } from 'firebase/firestore'; // Certifique-se de importar o Firestore corretamente
-import './styles.css';
-
 export default function IDIOMATICAMENTE() {
   const [user, setUser] = useState(null);
   const [expressions, setExpressions] = useState([]);
@@ -40,11 +33,6 @@ export default function IDIOMATICAMENTE() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
-      <h1 className="text-5xl font-bold text-black mb-2">IDIOMATICAMENTE</h1>
-      <p className="text-lg text-gray-600 mb-6">
-        Porque algumas expressões não cabem em duas línguas — e tudo bem.
-      </p>
-
       <input
         type="text"
         placeholder="Buscar por expressão, tradução ou contexto..."
