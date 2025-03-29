@@ -84,14 +84,14 @@ input:focus {
 /* Ajustes no título e subtítulo */
 #title {
   text-align: center;
-  font-size: 3rem; /* Ajuste o tamanho conforme necessário */
-  margin-top: 20px;
+  font-size: 3rem; /* Tamanho ajustado */
+  margin-top: 20px; /* Margem superior para dar mais espaço */
 }
 
 #subtitle {
   text-align: center;
-  font-size: 1.25rem; /* Mantém o tamanho atual ou ajuste se necessário */
-  margin-top: 10px;
+  font-size: 1.25rem; /* Subtítulo com o mesmo tamanho que já estava */
+  margin-top: 10px; /* Margem para separar do título */
   font-weight: normal;
 }
 
