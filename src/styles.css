@@ -9,20 +9,6 @@ h1, h2 {
   font-family: 'Roboto', sans-serif;
 }
 
-/* Centralizar o título "IDIOMATICAMENTE" ao topo e aumentar a fonte */
-#title {
-  text-align: center;
-  font-size: 3rem; /* Ajuste o tamanho conforme necessário */
-  margin-top: 20px;
-}
-
-#subtitle {
-  text-align: center;
-  font-size: 1.25rem; /* Mantém o tamanho atual ou ajuste se necessário */
-  margin-top: 10px;
-  font-weight: normal;
-}
-
 /* Ajuste do botão de login */
 .alert-button {
   background-color: #ff5a5f;
@@ -54,14 +40,6 @@ input:focus {
   outline: none;
 }
 
-/* Reduzir o tamanho da barra de busca */
-#search-bar {
-  width: 60%; /* Ou qualquer valor que torne a barra de busca mais compacta */
-  margin: 20px auto;
-  padding: 10px;
-  font-size: 1rem; /* Ajuste o tamanho da fonte da barra de busca */
-}
-
 /* Alertas */
 .alert {
   background-color: #fff3cd;
@@ -69,13 +47,6 @@ input:focus {
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;
-}
-
-/* Diminuir o disclaimer */
-#disclaimer {
-  font-size: 0.875rem; /* Ou qualquer valor mais confortável */
-  margin: 10px 0;
-  text-align: center;
 }
 
 /* Layout dos Cards */
@@ -100,6 +71,20 @@ input:focus {
 /* Ajuste da área de adição de expressões */
 .bg-gray-50 {
   background-color: #f7f7f7;
+}
+
+/* Ajustes no título e subtítulo */
+#title {
+  text-align: center;
+  font-size: 3rem; /* Ajuste o tamanho conforme necessário */
+  margin-top: 20px;
+}
+
+#subtitle {
+  text-align: center;
+  font-size: 1.25rem; /* Mantém o tamanho atual ou ajuste se necessário */
+  margin-top: 10px;
+  font-weight: normal;
 }
 
 button {
