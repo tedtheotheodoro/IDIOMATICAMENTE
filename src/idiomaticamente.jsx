@@ -5,7 +5,7 @@ import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
 import { collection, addDoc, getDocs } from 'firebase/firestore'; // Certifique-se de importar o Firestore corretamente
 import './styles.css';
 
-export default function idiomaticamente() {
+export default function IDIOMATICAMENTE() {
   const [user, setUser] = useState(null);
   const [expressions, setExpressions] = useState([]);
   const [search, setSearch] = useState('');
