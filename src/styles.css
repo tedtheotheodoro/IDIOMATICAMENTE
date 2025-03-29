@@ -1,31 +1,22 @@
-/* Estilos gerais */
 body {
   font-family: 'Arial', sans-serif;
   background-color: #f9fafb;
   color: #333;
 }
 
-h1, h2 {
-  font-family: 'Roboto', sans-serif;
+#title {
+  text-align: center;
+  font-size: 3rem;
+  margin-top: 20px;
 }
 
-/* Ajuste do botão de login */
-.alert-button {
-  background-color: #ff5a5f;
-  color: #fff;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+#subtitle {
+  text-align: center;
+  font-size: 1.25rem;
+  margin-top: 10px;
+  font-weight: normal;
 }
 
-.alert-button:hover {
-  background-color: #e24e4f;
-}
-
-/* Estilo de input */
 input {
   border: 2px solid #e0e0e0;
   padding: 10px;
@@ -38,56 +29,4 @@ input {
 input:focus {
   border-color: #6200ea;
   outline: none;
-}
-
-/* Alertas */
-.alert {
-  background-color: #fff3cd;
-  color: #856404;
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-/* Layout dos Cards */
-.card {
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  margin-bottom: 15px;
-}
-
-.card h3 {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.card p {
-  font-size: 14px;
-  color: #555;
-}
-
-/* Ajuste da área de adição de expressões */
-.bg-gray-50 {
-  background-color: #f7f7f7;
-}
-
-button {
-  background-color: #6200ea;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #3700b3;
-}
-
-button:disabled {
-  background-color: #bdbdbd;
-  cursor: not-allowed;
 }

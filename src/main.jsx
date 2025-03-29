@@ -1,15 +1,11 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import idiomaticamente from './idiomaticamente'
-import './index.css'; // Importa o Tailwind!
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import IDIOMATICAMENTE from './idiomaticamente'; // Importa o componente
+import './index.css'; // Importa os estilos
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <div className="text-center">
-      <h1 id="title">IDIOMATICAMENTE</h1>
-      <p id="subtitle">Porque algumas expressões não cabem em duas línguas — e tudo bem.</p>
-    </div>
-    {/* Componente idiomaticamente */}
-    <idiomaticamente />
+    <IDIOMATICAMENTE />
   </React.StrictMode>,
-)
+);
+
