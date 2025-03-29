@@ -30,9 +30,12 @@ input {
   border: 2px solid #e0e0e0;
   padding: 10px;
   border-radius: 6px;
-  width: 100%;
+  width: 80%; /* Reduzir a largura */
   margin-bottom: 15px;
   font-size: 14px;
+  margin-left: auto; /* Centraliza o input */
+  margin-right: auto; /* Centraliza o input */
+  display: block; /* Garante que o input seja tratado como bloco */
 }
 
 input:focus {
@@ -44,9 +47,14 @@ input:focus {
 .alert {
   background-color: #fff3cd;
   color: #856404;
-  padding: 20px;
+  padding: 15px; /* Menos padding */
   border-radius: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 15px; /* Diminuir margem */
+  font-size: 14px; /* Ajuste no tamanho da fonte */
+  max-width: 80%; /* Reduzir a largura */
+  margin-left: auto; /* Centraliza o disclaimer */
+  margin-right: auto; /* Centraliza o disclaimer */
+  text-align: center; /* Centraliza o texto dentro do disclaimer */
 }
 
 /* Layout dos Cards */
