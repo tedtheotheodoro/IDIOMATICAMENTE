@@ -85,7 +85,7 @@ export default function Idiomaticamente() {
     );
   });
 
-  // Estilos COMPLETOS (idênticos aos originais)
+  // Estilos atualizados
   const styles = {
     container: {
       padding: 24,
@@ -106,24 +106,6 @@ export default function Idiomaticamente() {
       color: '#666',
       marginBottom: 24,
     },
-    disclaimer: {
-      backgroundColor: '#f5f5f5',
-      padding: 16,
-      borderRadius: 12,
-      marginBottom: 24,
-      textAlign: 'center',
-      border: '1px solid #e0e0e0',
-    },
-    disclaimerText: {
-      fontSize: 14,
-      color: '#555',
-      margin: 0,
-      lineHeight: 1.5,
-    },
-    disclaimerHighlight: {
-      fontWeight: 'bold',
-      color: '#333',
-    },
     searchInput: {
       padding: 12,
       marginBottom: 24,
@@ -141,11 +123,13 @@ export default function Idiomaticamente() {
       padding: 16,
       borderRadius: 8,
       marginBottom: 24,
+      textAlign: 'center',
     },
     loginAlertText: {
       color: '#5d4037',
       fontWeight: '500',
       margin: '0 0 12px 0',
+      lineHeight: 1.5,
     },
     loginButton: {
       backgroundColor: '#000',
@@ -278,15 +262,6 @@ export default function Idiomaticamente() {
       <h1 style={styles.title}>IDIOMATICAMENTE</h1>
       <p style={styles.subtitle}>Porque algumas expressões não cabem em duas línguas — e tudo bem.</p>
 
-      {/* Aviso de login */}
-      <div style={styles.disclaimer}>
-        <p style={styles.disclaimerText}>
-          Para adicionar novas expressões ao banco de dados, faça login.
-          <br />
-          <span style={styles.disclaimerHighlight}>Log in to add more expressions to our database.</span>
-        </p>
-      </div>
-
       {/* Barra de busca */}
       <input
         type="text"
@@ -296,10 +271,16 @@ export default function Idiomaticamente() {
         style={styles.searchInput}
       />
 
-      {/* Seção de autenticação */}
+      {/* Seção unificada de autenticação */}
       {!user ? (
         <div style={styles.loginAlert}>
-          <p style={styles.loginAlertText}>⚠️ É necessário fazer login para adicionar novas expressões.</p>
+          <p style={styles.loginAlertText}>
+            ⚠️ Para adicionar novas expressões ao banco de dados, faça login.
+            <br />
+            <span style={{ fontSize: '0.9em' }}>
+              Log in to add more expressions to our database.
+            </span>
+          </p>
           <button
             onClick={handleLogin}
             style={styles.loginButton}
